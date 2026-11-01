@@ -4,7 +4,6 @@ import 'package:shild_constructor/features/project/domain/models/project.dart';
 import 'package:shild_constructor/features/shield_editor/domain/models/shield_scene.dart';
 
 part 'project_state.freezed.dart';
-part 'project_state.g.dart';
 
 @freezed
 class ProjectState with _$ProjectState {
@@ -17,7 +16,4 @@ class ProjectState with _$ProjectState {
     String? selectedWireId,
     String? selectedNoteId,
   }) = _ProjectState;
-
-  factory ProjectState.fromJson(Map<String, dynamic> json) =>
-      _$ProjectStateFromJson(json);
 }
