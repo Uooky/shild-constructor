@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'shield_scene.freezed.dart';
 part 'shield_scene.g.dart';
@@ -8,12 +9,32 @@ enum ModuleType { breaker, relay, rcd, terminal, meter, custom }
 enum WireMaterial { copper, aluminum }
 enum NoteAlignment { left, center, right }
 
+class OffsetJsonConverter implements JsonConverter<Offset, Map<String, dynamic>> {
+  const OffsetJsonConverter();
+
+  @override
+  Offset fromJson(Map<String, dynamic> json) {
+    return Offset(
+      (json['dx'] as num).toDouble(),
+      (json['dy'] as num).toDouble(),
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson(Offset object) {
+    return {
+      'dx': object.dx,
+      'dy': object.dy,
+    };
+  }
+}
+
 @freezed
 class ShieldScene with _$ShieldScene {
   const factory ShieldScene({
     required String id,
     @Default(1.0) double scale,
-    @Default(Offset.zero) Offset panOffset,
+    @OffsetJsonConverter() @Default(Offset.zero) Offset panOffset,
     @Default(true) bool gridVisible,
     @Default(25.0) double gridSize,
     @Default([]) List<DinRail> dinRails,
