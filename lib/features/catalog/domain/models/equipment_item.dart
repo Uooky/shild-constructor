@@ -6,6 +6,8 @@ part 'equipment_item.g.dart';
 
 @freezed
 class EquipmentItem with _$EquipmentItem {
+  const EquipmentItem._();
+
   const factory EquipmentItem({
     required String id,
     required String name,
