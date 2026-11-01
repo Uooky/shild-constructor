@@ -44,6 +44,8 @@ class DinRail with _$DinRail {
 
 @freezed
 class ShieldModule with _$ShieldModule {
+  const ShieldModule._();
+
   const factory ShieldModule({
     required String id,
     required String catalogId,
@@ -91,6 +93,8 @@ class WirePath with _$WirePath {
 
 @freezed
 class NoteItem with _$NoteItem {
+  const NoteItem._();
+
   const factory NoteItem({
     required String id,
     required String text,
