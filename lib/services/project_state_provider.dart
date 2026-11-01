@@ -6,6 +6,10 @@ import 'package:shild_constructor/features/project/domain/models/project_state.d
 import 'package:shild_constructor/features/project/domain/services/project_runtime_service.dart';
 import 'package:shild_constructor/features/shield_editor/domain/models/shield_scene.dart';
 
+final projectFileServiceProvider = Provider<ProjectFileService>((ref) {
+  return ProjectFileService();
+});
+
 final projectControllerProvider =
     StateNotifierProvider<ProjectController, ProjectState>((ref) {
   return ProjectController(projectFileService: ref.read(projectFileServiceProvider));
