@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+      Id="*"
+      Name="Shild Constructor"
+      Language="1033"
+      Version="1.0.0.0"
+      Manufacturer="YourCompany"
+      UpgradeCode="{11111111-2222-3333-4444-555555555555}">
+
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" />
+
+    <MediaTemplate />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Shild Constructor" />
+      </Directory>
+      <Directory Id="DesktopFolder" />
+    </Directory>
+
+    <Feature Id="MainFeature" Title="Shild Constructor" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="DesktopShortcutComponent" />
+    </Feature>
+
+    <ComponentGroup Id="ProductComponents">
+      <Component Id="MainAppComponent" Directory="INSTALLFOLDER" Guid="{AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE}">
+        <File
+          Id="AppExecutable"
+          Source="C:\path\to\your\project\build\windows\x64\runner\Release\shild_constructor.exe"
+          KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <Component Id="DesktopShortcutComponent" Directory="DesktopFolder" Guid="{BBBBBBBB-CCCC-DDDD-EEEE-FFFFFFFFFFFF}">
+      <Shortcut
+          Id="DesktopShortcut"
+          Name="Shild Constructor"
+          Target="[INSTALLFOLDER]shild_constructor.exe"
+          WorkingDirectory="INSTALLFOLDER"
+          Advertise="no" />
+      <RegistryValue Root="HKCU" Key="Software\ShildConstructor" Name="DesktopShortcut" Type="integer" Value="1" KeyPath="yes" />
+    </Component>
+
+  </Product>
+</Wix>
