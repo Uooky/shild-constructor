@@ -11,18 +11,13 @@ enum NetworkPhase { single, three }
 
 class OffsetJsonConverter implements JsonConverter<Offset, Map<String, dynamic>> {
   const OffsetJsonConverter();
-
   @override
   Offset fromJson(Map<String, dynamic> json) => Offset(
         (json['dx'] as num).toDouble(),
         (json['dy'] as num).toDouble(),
       );
-
   @override
-  Map<String, dynamic> toJson(Offset object) => {
-        'dx': object.dx,
-        'dy': object.dy,
-      };
+  Map<String, dynamic> toJson(Offset object) => {'dx': object.dx, 'dy': object.dy};
 }
 
 @freezed
@@ -39,10 +34,9 @@ abstract class ShieldScene with _$ShieldScene {
     @Default([]) List<ShieldModule> modules,
     @Default([]) List<WirePath> wires,
     @Default([]) List<NoteItem> notes,
+    @Default([]) List<CircuitGroup> circuitGroups,
   }) = _ShieldScene;
-
-  factory ShieldScene.fromJson(Map<String, dynamic> json) =>
-      _$ShieldSceneFromJson(json);
+  factory ShieldScene.fromJson(Map<String, dynamic> json) => _$ShieldSceneFromJson(json);
 }
 
 @freezed
@@ -56,14 +50,12 @@ abstract class DinRail with _$DinRail {
     @Default(0.0) double spacing,
     @Default(1.0) double moduleCount,
   }) = _DinRail;
-
   factory DinRail.fromJson(Map<String, dynamic> json) => _$DinRailFromJson(json);
 }
 
 @freezed
 abstract class ShieldModule with _$ShieldModule {
   const ShieldModule._();
-
   const factory ShieldModule({
     required String id,
     required String catalogId,
@@ -82,17 +74,26 @@ abstract class ShieldModule with _$ShieldModule {
     @Default(6.0) double breakingCapacityKa,
     @Default(1) int phase,
   }) = _ShieldModule;
-
-  factory ShieldModule.fromJson(Map<String, dynamic> json) =>
-      _$ShieldModuleFromJson(json);
-
+  factory ShieldModule.fromJson(Map<String, dynamic> json) => _$ShieldModuleFromJson(json);
   Color get color => Color(colorValue);
+}
+
+@freezed
+abstract class CircuitGroup with _$CircuitGroup {
+  const factory CircuitGroup({
+    required String id,
+    required String name,
+    @Default(1) int phase,
+    @Default(0.0) double designLoadW,
+    @Default([]) List<String> moduleIds,
+    @Default('') String notes,
+  }) = _CircuitGroup;
+  factory CircuitGroup.fromJson(Map<String, dynamic> json) => _$CircuitGroupFromJson(json);
 }
 
 @freezed
 abstract class WireNode with _$WireNode {
   const factory WireNode({required double x, required double y}) = _WireNode;
-
   factory WireNode.fromJson(Map<String, dynamic> json) => _$WireNodeFromJson(json);
 }
 
@@ -106,14 +107,12 @@ abstract class WirePath with _$WirePath {
     @Default(0.0) double calculatedLengthMm,
     @Default('') String zoneName,
   }) = _WirePath;
-
   factory WirePath.fromJson(Map<String, dynamic> json) => _$WirePathFromJson(json);
 }
 
 @freezed
 abstract class NoteItem with _$NoteItem {
   const NoteItem._();
-
   const factory NoteItem({
     required String id,
     required String text,
@@ -122,8 +121,6 @@ abstract class NoteItem with _$NoteItem {
     @Default(NoteAlignment.left) NoteAlignment alignment,
     @Default(0xFF1F2937) int colorValue,
   }) = _NoteItem;
-
   factory NoteItem.fromJson(Map<String, dynamic> json) => _$NoteItemFromJson(json);
-
   Color get color => Color(colorValue);
 }
