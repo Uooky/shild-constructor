@@ -5,7 +5,7 @@ part 'equipment_item.freezed.dart';
 part 'equipment_item.g.dart';
 
 @freezed
-class EquipmentItem with _$EquipmentItem {
+abstract class EquipmentItem with _$EquipmentItem {
   const EquipmentItem._();
 
   const factory EquipmentItem({

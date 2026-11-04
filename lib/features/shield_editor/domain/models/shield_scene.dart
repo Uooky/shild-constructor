@@ -7,6 +7,7 @@ part 'shield_scene.g.dart';
 enum ModuleType { breaker, relay, rcd, terminal, meter, custom }
 enum WireMaterial { copper, aluminum }
 enum NoteAlignment { left, center, right }
+enum NetworkPhase { single, three }
 
 class OffsetJsonConverter implements JsonConverter<Offset, Map<String, dynamic>> {
   const OffsetJsonConverter();
@@ -32,6 +33,8 @@ abstract class ShieldScene with _$ShieldScene {
     @OffsetJsonConverter() @Default(Offset.zero) Offset panOffset,
     @Default(true) bool gridVisible,
     @Default(25.0) double gridSize,
+    @Default(125.0) double railSpacingMm,
+    @Default(NetworkPhase.single) NetworkPhase networkPhase,
     @Default([]) List<DinRail> dinRails,
     @Default([]) List<ShieldModule> modules,
     @Default([]) List<WirePath> wires,
@@ -72,6 +75,12 @@ abstract class ShieldModule with _$ShieldModule {
     required double height,
     @Default(0.0) double rotation,
     @Default(0xFF4CAF50) int colorValue,
+    @Default(0.0) double price,
+    @Default(16.0) double ratedCurrentA,
+    @Default(2) int poles,
+    @Default('C') String tripCurve,
+    @Default(6.0) double breakingCapacityKa,
+    @Default(1) int phase,
   }) = _ShieldModule;
 
   factory ShieldModule.fromJson(Map<String, dynamic> json) =>
@@ -82,10 +91,7 @@ abstract class ShieldModule with _$ShieldModule {
 
 @freezed
 abstract class WireNode with _$WireNode {
-  const factory WireNode({
-    required double x,
-    required double y,
-  }) = _WireNode;
+  const factory WireNode({required double x, required double y}) = _WireNode;
 
   factory WireNode.fromJson(Map<String, dynamic> json) => _$WireNodeFromJson(json);
 }
@@ -117,8 +123,7 @@ abstract class NoteItem with _$NoteItem {
     @Default(0xFF1F2937) int colorValue,
   }) = _NoteItem;
 
-  factory NoteItem.fromJson(Map<String, dynamic> json) =>
-      _$NoteItemFromJson(json);
+  factory NoteItem.fromJson(Map<String, dynamic> json) => _$NoteItemFromJson(json);
 
   Color get color => Color(colorValue);
 }
