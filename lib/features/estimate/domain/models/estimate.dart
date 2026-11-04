@@ -4,7 +4,7 @@ part 'estimate.freezed.dart';
 part 'estimate.g.dart';
 
 @freezed
-class Estimate with _$Estimate {
+abstract class Estimate with _$Estimate {
   const factory Estimate({
     required String id,
     required String projectId,
@@ -20,7 +20,7 @@ class Estimate with _$Estimate {
 }
 
 @freezed
-class EstimateLine with _$EstimateLine {
+abstract class EstimateLine with _$EstimateLine {
   const factory EstimateLine({
     required String id,
     required String equipmentId,
