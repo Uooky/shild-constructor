@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'shield_scene.freezed.dart';
 part 'shield_scene.g.dart';
@@ -13,24 +12,20 @@ class OffsetJsonConverter implements JsonConverter<Offset, Map<String, dynamic>>
   const OffsetJsonConverter();
 
   @override
-  Offset fromJson(Map<String, dynamic> json) {
-    return Offset(
-      (json['dx'] as num).toDouble(),
-      (json['dy'] as num).toDouble(),
-    );
-  }
+  Offset fromJson(Map<String, dynamic> json) => Offset(
+        (json['dx'] as num).toDouble(),
+        (json['dy'] as num).toDouble(),
+      );
 
   @override
-  Map<String, dynamic> toJson(Offset object) {
-    return {
-      'dx': object.dx,
-      'dy': object.dy,
-    };
-  }
+  Map<String, dynamic> toJson(Offset object) => {
+        'dx': object.dx,
+        'dy': object.dy,
+      };
 }
 
 @freezed
-class ShieldScene with _$ShieldScene {
+abstract class ShieldScene with _$ShieldScene {
   const factory ShieldScene({
     required String id,
     @Default(1.0) double scale,
@@ -48,7 +43,7 @@ class ShieldScene with _$ShieldScene {
 }
 
 @freezed
-class DinRail with _$DinRail {
+abstract class DinRail with _$DinRail {
   const factory DinRail({
     required String id,
     required double x,
@@ -59,12 +54,11 @@ class DinRail with _$DinRail {
     @Default(1.0) double moduleCount,
   }) = _DinRail;
 
-  factory DinRail.fromJson(Map<String, dynamic> json) =>
-      _$DinRailFromJson(json);
+  factory DinRail.fromJson(Map<String, dynamic> json) => _$DinRailFromJson(json);
 }
 
 @freezed
-class ShieldModule with _$ShieldModule {
+abstract class ShieldModule with _$ShieldModule {
   const ShieldModule._();
 
   const factory ShieldModule({
@@ -87,18 +81,17 @@ class ShieldModule with _$ShieldModule {
 }
 
 @freezed
-class WireNode with _$WireNode {
+abstract class WireNode with _$WireNode {
   const factory WireNode({
     required double x,
     required double y,
   }) = _WireNode;
 
-  factory WireNode.fromJson(Map<String, dynamic> json) =>
-      _$WireNodeFromJson(json);
+  factory WireNode.fromJson(Map<String, dynamic> json) => _$WireNodeFromJson(json);
 }
 
 @freezed
-class WirePath with _$WirePath {
+abstract class WirePath with _$WirePath {
   const factory WirePath({
     required String id,
     required String wireType,
@@ -108,12 +101,11 @@ class WirePath with _$WirePath {
     @Default('') String zoneName,
   }) = _WirePath;
 
-  factory WirePath.fromJson(Map<String, dynamic> json) =>
-      _$WirePathFromJson(json);
+  factory WirePath.fromJson(Map<String, dynamic> json) => _$WirePathFromJson(json);
 }
 
 @freezed
-class NoteItem with _$NoteItem {
+abstract class NoteItem with _$NoteItem {
   const NoteItem._();
 
   const factory NoteItem({
