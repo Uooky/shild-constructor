@@ -4,7 +4,7 @@ part 'project.freezed.dart';
 part 'project.g.dart';
 
 @freezed
-class Project with _$Project {
+abstract class Project with _$Project {
   const factory Project({
     required String id,
     required String name,
@@ -22,7 +22,7 @@ class Project with _$Project {
 }
 
 @freezed
-class ProjectVersion with _$ProjectVersion {
+abstract class ProjectVersion with _$ProjectVersion {
   const factory ProjectVersion({
     required String id,
     required String label,
